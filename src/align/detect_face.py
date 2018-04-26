@@ -207,12 +207,13 @@ class Network(object):
     """
     @layer
     def softmax(self, target, axis, name=None):
-        max_axis = tf.reduce_max(target, axis, keepdims=True)
+        max_axis = tf.reduce_max(target, axis, keep_dims=True)
         target_exp = tf.exp(target-max_axis)
-        normalize = tf.reduce_sum(target_exp, axis, keepdims=True)
+        normalize = tf.reduce_sum(target_exp, axis, keep_dims=True)
         softmax = tf.div(target_exp, normalize, name)
         return softmax
-    
+
+
 class PNet(Network):
     def setup(self):
         (self.feed('data') #pylint: disable=no-value-for-parameter, no-member
@@ -228,7 +229,8 @@ class PNet(Network):
 
         (self.feed('PReLU3') #pylint: disable=no-value-for-parameter
              .conv(1, 1, 4, 1, 1, relu=False, name='conv4-2'))
-        
+
+
 class RNet(Network):
     def setup(self):
         (self.feed('data') #pylint: disable=no-value-for-parameter, no-member
